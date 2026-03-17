@@ -1,241 +1,345 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Okoye Otitochukwu Nicodemus | Portfolio</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Okoye Otitochukwu Nicodemus | Storyteller & Web Developer</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-<style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
-  font-family: Arial, sans-serif;
-}
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #0a0a0f;
+      color: #e0e0ff;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
 
-body{
-  background:#0f0f0f;
-  color:white;
-  line-height:1.6;
-}
+    header {
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(10px);
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 1px solid rgba(0, 255, 204, 0.15);
+    }
 
-/* ===== NAVBAR ===== */
-header{
-  background:#000;
-  padding:20px;
-  position:fixed;
-  width:100%;
-  top:0;
-  z-index:1000;
-}
+    nav {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1.2rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
 
-nav{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  max-width:1100px;
-  margin:auto;
-}
+    nav h2 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.8rem;
+      color: #00ffcc;
+      letter-spacing: 2px;
+    }
 
-nav h2{
-  color:#00ffcc;
-}
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 2.5rem;
+    }
 
-nav ul{
-  list-style:none;
-  display:flex;
-  gap:25px;
-}
+    nav ul li a {
+      color: #d1d1ff;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s ease;
+    }
 
-nav ul li a{
-  text-decoration:none;
-  color:white;
-  transition:0.3s;
-}
+    nav ul li a:hover {
+      color: #00ffcc;
+    }
 
-nav ul li a:hover{
-  color:#00ffcc;
-}
+    /* Hero */
+    .hero {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 0 2rem;
+      background: linear-gradient(135deg, #0f0f1a 0%, #1a0033 100%);
+    }
 
-/* ===== SECTIONS ===== */
-section{
-  padding:100px 20px;
-  max-width:1000px;
-  margin:auto;
-}
+    .hero h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 3.8rem;
+      margin-bottom: 1rem;
+      color: white;
+    }
 
-.hero{
-  height:100vh;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  align-items:center;
-  text-align:center;
-}
+    .hero h1 span {
+      color: #00ffcc;
+    }
 
-.hero h1{
-  font-size:42px;
-  margin-bottom:15px;
-}
+    .hero p {
+      font-size: 1.4rem;
+      color: #a5b4fc;
+      margin-bottom: 2rem;
+    }
 
-.hero span{
-  color:#00ffcc;
-}
+    .btn {
+      display: inline-block;
+      padding: 0.9rem 2rem;
+      background: #00ffcc;
+      color: #0a0a0f;
+      text-decoration: none;
+      font-weight: 700;
+      border-radius: 50px;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 20px rgba(0, 255, 204, 0.4);
+    }
 
-.btn{
-  display:inline-block;
-  margin-top:20px;
-  padding:10px 20px;
-  background:#00ffcc;
-  color:black;
-  text-decoration:none;
-  border-radius:5px;
-  transition:0.3s;
-  font-weight:bold;
-}
+    .btn:hover {
+      transform: translateY(-3px);
+      background: white;
+      box-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
+    }
 
-.btn:hover{
-  background:white;
-}
+    /* Sections */
+    section {
+      padding: 8rem 2rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
 
-/* ===== CARDS ===== */
-.card{
-  background:#1a1a1a;
-  padding:25px;
-  margin:25px 0;
-  border-radius:8px;
-  transition:0.4s;
-  opacity:0;
-  transform:translateY(40px);
-}
+    h2 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2.8rem;
+      color: #00ffcc;
+      text-align: center;
+      margin-bottom: 3rem;
+      letter-spacing: 1px;
+    }
 
-.card:hover{
-  transform:translateY(-5px);
-}
+    .about-card, .contact-card {
+      background: rgba(26, 26, 46, 0.6);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(0, 255, 204, 0.15);
+      border-radius: 16px;
+      padding: 2.5rem;
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: all 0.8s ease;
+    }
 
-/* ===== CONTACT ===== */
-footer{
-  text-align:center;
-  padding:20px;
-  background:#000;
-  margin-top:40px;
-}
+    .about-card.visible, .contact-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
-/* ===== RESPONSIVE ===== */
-@media(max-width:768px){
-  nav ul{
-    flex-direction:column;
-    gap:10px;
-  }
-}
-</style>
+    /* Works Grid */
+    .works-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 2rem;
+    }
+
+    .work-card {
+      background: rgba(20, 20, 40, 0.7);
+      border: 1px solid rgba(0, 255, 204, 0.1);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: all 0.4s ease;
+      opacity: 0;
+      transform: translateY(40px);
+    }
+
+    .work-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .work-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 40px rgba(0, 255, 204, 0.15);
+      border-color: #00ffcc;
+    }
+
+    .work-card h3 {
+      padding: 1.5rem 1.5rem 0.5rem;
+      color: #00ffcc;
+      font-size: 1.6rem;
+    }
+
+    .work-card p {
+      padding: 0 1.5rem 1.5rem;
+      color: #c3c8ff;
+    }
+
+    .work-card .btn {
+      margin: 0 1.5rem 1.5rem;
+      display: block;
+      text-align: center;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 3rem 1rem;
+      background: #000;
+      color: #94a3b8;
+      border-top: 1px solid rgba(0, 255, 204, 0.1);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      nav ul {
+        gap: 1.5rem;
+      }
+
+      .hero h1 {
+        font-size: 2.8rem;
+      }
+
+      h2 {
+        font-size: 2.2rem;
+      }
+    }
+
+    @media (max-width: 600px) {
+      nav {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      nav ul {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+    }
+  </style>
 </head>
-
 <body>
 
-<!-- ===== NAVBAR ===== -->
-<header>
-  <nav>
-    <h2>Otito</h2>
-    <ul>
-      <li><a href="#home">Home</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#works">Series</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </nav>
-</header>
+  <!-- Navbar -->
+  <header>
+    <nav>
+      <h2>Otito</h2>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#works">Series</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
 
-<!-- ===== HERO ===== -->
-<section class="hero" id="home">
-  <h1>Hello, I'm <span>Okoye Otitochukwu Nicodemus</span></h1>
-  <p>Story Writer | Web Developer | Creative Thinker</p>
-  <a href="#works" class="btn">Read My Series</a>
-</section>
+  <!-- Hero -->
+  <section class="hero" id="home">
+    <h1>Hello, I'm <span>Okoye Otitochukwu Nicodemus</span></h1>
+    <p>Story Writer | Web Developer | Creative Storyteller</p>
+    <a href="#works" class="btn">Explore My Stories</a>
+  </section>
 
-<!-- ===== ABOUT ===== -->
-<section id="about">
-  <h2>About Me</h2>
-  <div class="card">
-    <p>
-      I am a creative storyteller and web developer passionate about building
-      immersive story experiences online. I combine suspense-driven narratives
-      with clean, modern web design to bring stories to life.
-    </p>
-  </div>
-</section>
+  <!-- About -->
+  <section id="about">
+    <h2>About Me</h2>
+    <div class="about-card">
+      <p>
+        I'm a passionate storyteller and web developer from Anambra State, blending gripping narratives with clean, immersive web experiences. 
+        Whether it's suspenseful crime dramas, apocalyptic survival tales, or heartfelt romance journeys, I create stories that keep readers hooked while building the digital platforms to bring them to life.
+      </p>
+    </div>
+  </section>
 
-<!-- ===== WORKS ===== -->
-<section id="works">
-  <h2>Read My Series Online</h2>
+  <!-- Works -->
+  <section id="works">
+    <h2>My Story Series</h2>
+    <div class="works-grid">
 
-  <div class="card">
-    <h3>The Family – A Drug Story</h3>
-    <p>
-      A gripping crime drama centered around power, loyalty, and the hidden world of drugs.
-      Follow the tension, secrets, and dangerous choices that shape the family’s fate.
-    </p>
-    <a href="http://okoyeotito.netlify.app" target="_blank" class="btn">
-      Read The Family
-    </a>
-  </div>
+      <div class="work-card">
+        <h3>TikTok to Forever — Sasha & Otito</h3>
+        <p>
+          A beautiful, emotional romance that starts with a simple TikTok duet and grows into a year of deep connection, an intense first meeting, heartbreak, reconciliation, marriage, and family. 
+          From raw passion in the shower to naming their daughter Efebomwen — a true love story with a happy, forever ending.
+        </p>
+        <a href="https://atruelovestory.netlify.app" target="_blank" class="btn">Read TikTok to Forever</a>
+      </div>
 
-  <div class="card">
-    <h3>Zombie Apocalypse</h3>
-    <p>
-      A survival story set in a world consumed by chaos.
-      When society collapses and the undead rise, every decision means life or death.
-    </p>
-    <a href="https://storytimee1.netlify.app/" target="_blank" class="btn">
-      Read Zombie Series
-    </a>
-  </div>
+      <div class="work-card">
+        <h3>The Family – A Drug Story</h3>
+        <p>
+          A tense crime drama exploring power struggles, unbreakable loyalty, dark secrets, and the brutal underworld of drugs. 
+          Every chapter pulls you deeper into the family's dangerous choices and inevitable consequences.
+        </p>
+        <a href="http://okoyeotito.netlify.app" target="_blank" class="btn">Read The Family</a>
+      </div>
 
-</section>
+      <div class="work-card">
+        <h3>Zombie Apocalypse</h3>
+        <p>
+          In a world overrun by the undead, survival is everything. 
+          Follow ordinary people fighting chaos, making impossible decisions, and clinging to hope when society collapses.
+        </p>
+        <a href="https://storytimee1.netlify.app/" target="_blank" class="btn">Read Zombie Series</a>
+      </div>
 
-<!-- ===== CONTACT ===== -->
-<section id="contact">
-  <h2>Contact Me</h2>
-  <div class="card">
-    <p><strong>Phone:</strong> +2349038679275</p>
-    <a href="https://wa.me/2349038679275" class="btn">
-      Chat on WhatsApp
-    </a>
-  </div>
-</section>
+    </div>
+  </section>
 
-<footer>
-  © 2026 Okoye Otitochukwu Nicodemus
-</footer>
+  <!-- Contact -->
+  <section id="contact">
+    <h2>Get In Touch</h2>
+    <div class="contact-card">
+      <p><strong>Phone / WhatsApp:</strong> +234 903 867 9275</p>
+      <a href="https://wa.me/2349038679275" target="_blank" class="btn">Message Me on WhatsApp</a>
+    </div>
+  </section>
 
-<!-- ===== JAVASCRIPT ===== -->
-<script>
+  <!-- Footer -->
+  <footer>
+    <p>© <script>document.write(new Date().getFullYear());</script> Okoye Otitochukwu Nicodemus. Built with passion & code.</p>
+  </footer>
 
-// Smooth scrolling
-document.querySelectorAll("a[href^='#']").forEach(anchor => {
-  anchor.addEventListener("click", function(e) {
-    e.preventDefault();
-    document.querySelector(this.getAttribute("href"))
-      .scrollIntoView({ behavior: "smooth" });
-  });
-});
+  <!-- JavaScript -->
+  <script>
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
 
-// Fade-in animation on scroll
-const cards = document.querySelectorAll(".card");
+    // Fade-in on scroll
+    const fadeElements = document.querySelectorAll('.about-card, .contact-card, .work-card');
 
-window.addEventListener("scroll", () => {
-  cards.forEach(card => {
-    const position = card.getBoundingClientRect().top;
-    const screenPosition = window.innerHeight / 1.2;
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.15 });
 
-    if(position < screenPosition){
-      card.style.opacity = "1";
-      card.style.transform = "translateY(0)";
-    }
-  });
-});
-
-</script>
+    fadeElements.forEach(el => observer.observe(el));
+  </script>
 
 </body>
 </html>
