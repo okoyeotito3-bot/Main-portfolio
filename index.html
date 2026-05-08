@@ -1,71 +1,362 @@
-// cursor
-  const cur = document.getElementById('cursor');
-  const ring = document.getElementById('cursorRing');
-  let mx=0,my=0,rx=0,ry=0;
-  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
-  (function animR(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animR);})();
-  document.querySelectorAll('a,button').forEach(el=>{
-    el.addEventListener('mouseenter',()=>{cur.style.width='18px';cur.style.height='18px';ring.style.width='54px';ring.style.height='54px';});
-    el.addEventListener('mouseleave',()=>{cur.style.width='10px';cur.style.height='10px';ring.style.width='36px';ring.style.height='36px';});
-  });
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Otito | Frontend Developer</title>
+ <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
 
-  // smooth scroll
-  document.querySelectorAll('a[href^="#"]').forEach(a=>{
-    a.addEventListener('click',e=>{e.preventDefault();document.querySelector(a.getAttribute('href'))?.scrollIntoView({behavior:'smooth'});});
-  });
+</head>
+<body>
 
-  // scroll reveal
-  const obs=new IntersectionObserver(entries=>{entries.forEach(en=>{if(en.isIntersecting){en.target.classList.add('visible');obs.unobserve(en.target);}});},{threshold:.1});
-  document.querySelectorAll('.reveal,.work-card').forEach(el=>obs.observe(el));
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
 
-  // skill bars
-  const sbObs=new IntersectionObserver(entries=>{entries.forEach(en=>{if(en.isIntersecting){en.target.querySelectorAll('.skill-fill').forEach(f=>{f.style.width=f.dataset.w+'%';});sbObs.unobserve(en.target);}});},{threshold:.3});
-  document.querySelectorAll('.skills-block').forEach(el=>sbObs.observe(el));
+<!-- Nav -->
+<header>
+  <div class="nav-logo">otito<span>.dev</span></div>
+  <nav>
+    <ul>
+      <li><a href="#home">Home</a></li>
+      <li><a href="#availability">Status</a></li>
+      <li><a href="#works">Works</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="https://wa.me/2349038679275" target="_blank" class="nav-hire">Hire Me</a></li>
+    </ul>
+  </nav>
+</header>
 
-  // clock — WAT = UTC+1
-  const sched=[
-    {s:0,   e:8,    a:'😴 Fast asleep',           b:'Come back in the morning!'},
-    {s:8,   e:11,   a:'🌅 Just woke up',           b:'Morning routine — might reply slowly'},
-    {s:11,  e:12.5, a:'🧹 Doing house chores',     b:'Hands full — will reply soon'},
-    {s:12.5,e:13.5, a:'💪 At the gym',             b:'Getting gains — check back at 2PM'},
-    {s:13.5,e:14,   a:'🍽️ Having lunch',           b:'Eating right now — brb!'},
-    {s:14,  e:20,   a:'💻 On the laptop — coding', b:'✅ Best time to reach me! Open to collabs.'},
-    {s:20,  e:24,   a:'🌙 Evening wind-down',      b:'Relaxing — might still reply'},
-  ];
+<!-- Hero -->
+<section class="hero" id="home">
+  <div class="hero-left">
+    <div class="hero-tag"><div class="blink"></div>Available for work</div>
 
-  function getWAT(){const n=new Date();return new Date(n.getTime()+n.getTimezoneOffset()*60000+3600000);}
-  function pad(n){return String(n).padStart(2,'0');}
+    <h1>FRONTEND<br><span class="acc">DEVELOPER</span><br><span class="dim">— OTITO</span></h1>
 
-  function tick(){
-    const t=getWAT();
-    const h=t.getHours(),m=t.getMinutes(),s=t.getSeconds();
-    const ampm=h>=12?'PM':'AM',h12=h%12||12;
-    document.getElementById('cDig').textContent=`${pad(h12)}:${pad(m)}:${pad(s)} ${ampm}`;
-    const days=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
-    const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-    document.getElementById('cDt').textContent=`${days[t.getDay()]} ${months[t.getMonth()]} ${t.getDate()} ${t.getFullYear()}`;
-    document.getElementById('hS').style.transform=`rotate(${s*6}deg)`;
-    document.getElementById('hM').style.transform=`rotate(${m*6+s*.1}deg)`;
-    document.getElementById('hH').style.transform=`rotate(${(h%12)*30+m*.5}deg)`;
-    const dec=h+m/60;
-    const cur2=sched.find(x=>dec>=x.s&&dec<x.e)||sched[0];
-    document.getElementById('snAct').textContent=cur2.a;
-    document.getElementById('snSub').textContent=cur2.b;
-    document.querySelectorAll('.sched-row').forEach(row=>{
-      const rs=parseFloat(row.dataset.s),re=parseFloat(row.dataset.e),on=dec>=rs&&dec<re;
-      row.classList.toggle('sa-row',on);
-      row.querySelector('.s-dot').classList.toggle('sa',on);
-      row.querySelector('.s-lbl').classList.toggle('sa',on);
-      row.querySelector('.s-time').classList.toggle('sa',on);
-    });
-  }
-  tick();setInterval(tick,1000);
+    <p class="hero-desc">
+      I'm <strong>Okoye Otitochukwu Nicodemus</strong> — a frontend developer from <strong>Anambra, Nigeria</strong>, advancing toward full-stack. I build fast, clean, immersive web experiences and ship real projects that solve real problems.
+    </p>
 
-  // story accordion
-  function toggleStory(btn){
-    const body=btn.nextElementSibling;
-    const arr=btn.querySelector('.story-arr');
-    const open=body.classList.contains('open');
-    document.querySelectorAll('.story-body.open').forEach(b=>{b.classList.remove('open');b.previousElementSibling.querySelector('.story-arr').textContent='+';});
-    if(!open){body.classList.add('open');arr.textContent='−';}
-  }
+    <div class="hero-btns">
+      <a href="#works" class="btn-p">
+        View My Work
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <a href="#contact" class="btn-s">Contact Me</a>
+    </div>
+
+    <div class="hero-stack">
+      <div class="hs-label">// current stack</div>
+      <div class="stack-badges">
+        <span class="sbadge">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="#e34f26"><path d="M1.5 0h21l-1.91 21.563L11.977 24l-8.564-2.438L1.5 0zm7.031 9.75l-.232-2.718 10.059.003.23-2.622L5.412 4.41l.698 8.01h9.126l-.326 3.426-2.91.804-2.955-.81-.188-2.11H6.248l.33 4.171L12 19.351l5.379-1.443.744-8.157H8.531z"/></svg>
+          HTML5
+        </span>
+        <span class="sbadge">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="#1572b6"><path d="M1.5 0h21l-1.91 21.563L11.977 24l-8.565-2.438L1.5 0zm17.09 4.413L5.41 4.41l.213 2.622 10.125.002-.255 2.716h-6.64l.24 2.573h6.182l-.366 3.523-2.91.804-2.956-.81-.188-2.11h-2.61l.29 3.855L12 19.288l5.373-1.53L18.59 4.414z"/></svg>
+          CSS3
+        </span>
+        <span class="sbadge">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="#f7df1e"><path d="M0 0h24v24H0V0zm22.034 18.276c-.175-1.095-.888-2.015-3.003-2.873-.736-.345-1.554-.585-1.797-1.14-.091-.33-.105-.51-.046-.705.15-.646.915-.84 1.515-.66.39.12.75.42.976.9 1.034-.676 1.755-1.125-1.755-1.125-.27-.42-.404-.601-.586-.78-.63-.705-1.469-1.065-2.834-1.034l-.705.089c-.676.165-1.32.525-1.71 1.005-1.14 1.291-.811 3.541.569 4.471 1.365 1.02 3.361 1.244 3.616 2.205.24 1.17-.87 1.545-1.966 1.41-.811-.18-1.26-.586-1.755-1.336l-1.83 1.051c.21.48.45.689.81 1.109 1.74 1.756 6.09 1.666 6.871-1.004.029-.09.24-.705.074-1.65l.046.067zm-8.983-7.245h-2.248c0 1.938-.009 3.864-.009 5.805 0 1.232.063 2.363-.138 2.711-.33.689-1.18.601-1.566.48-.396-.196-.597-.466-.83-.855-.063-.105-.11-.196-.127-.196l-1.825 1.125c.305.63.75 1.172 1.324 1.517.855.51 2.004.675 3.207.405.783-.226 1.458-.691 1.811-1.411.51-.93.402-2.07.397-3.346.012-2.054 0-4.109 0-6.179l.004-.056z"/></svg>
+          JS
+        </span>
+        <span class="sbadge">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="2.05" fill="#61dafb"/><ellipse cx="12" cy="12" rx="10" ry="4.2" fill="none" stroke="#61dafb" stroke-width="1.2"/><ellipse cx="12" cy="12" rx="10" ry="4.2" fill="none" stroke="#61dafb" stroke-width="1.2" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="10" ry="4.2" fill="none" stroke="#61dafb" stroke-width="1.2" transform="rotate(120 12 12)"/></svg>
+          React
+        </span>
+        <span class="sbadge">▲ Next.js</span>
+        <span class="sbadge">🔷 Tailwind</span>
+        <span class="sbadge">🔥 Firebase</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Terminal -->
+  <div class="hero-right">
+    <div class="terminal">
+      <div class="t-bar">
+        <div class="td r"></div><div class="td y"></div><div class="td g"></div>
+        <span class="t-title">otito.js — portfolio</span>
+      </div>
+      <div class="t-body">
+        <span class="tl"><span class="tcm">// developer profile</span></span>
+        <span class="tl"><span class="tk">const</span> <span class="tc">developer</span> = {</span>
+        <span class="tl">&nbsp;&nbsp;<span class="tk">name</span>: <span class="ts">"Otitochukwu Nicodemus"</span>,</span>
+        <span class="tl">&nbsp;&nbsp;<span class="tk">alias</span>: <span class="ts">"Otito"</span>,</span>
+        <span class="tl">&nbsp;&nbsp;<span class="tk">role</span>: <span class="ts">"Frontend → Fullstack"</span>,</span>
+        <span class="tl">&nbsp;&nbsp;<span class="tk">location</span>: <span class="ts">"Anambra, NG 🇳🇬"</span>,</span>
+        <span class="tl">&nbsp;&nbsp;<span class="tk">stack</span>: [<span class="ts">"HTML"</span>, <span class="ts">"CSS"</span>, <span class="ts">"JS"</span>,</span>
+        <span class="tl">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="ts">"React"</span>, <span class="ts">"Next.js"</span>],</span>
+        <span class="tl">&nbsp;&nbsp;<span class="tk">learning</span>: [<span class="ts">"Node.js"</span>, <span class="ts">"Express"</span>],</span>
+        <span class="tl">&nbsp;&nbsp;<span class="tk">openTo</span>: <span class="ts">"collabs &amp; freelance"</span>,</span>
+        <span class="tl">&nbsp;&nbsp;<span class="tk">shipped</span>: <span class="tn">10</span>+ projects,</span>
+        <span class="tl">};</span>
+        <span class="tl">&nbsp;</span>
+        <span class="tl"><span class="tp">▶</span> <span class="tc">otito.available()</span></span>
+        <span class="tl"><span class="to">→ <span style="color:#4fffb0">true</span> ✅</span></span>
+        <span class="tl"><span class="tp">▶</span> <span class="t-cur"></span></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Availability / Clock -->
+<section class="section" id="availability" style="border-top:1px solid var(--bdr2);">
+  <div class="reveal">
+    <p class="sec-lbl">// nigeria time · WAT UTC+1</p>
+    <h2 class="sec-ttl">WHEN TO <span>REACH ME</span></h2>
+  </div>
+  <div class="avail-grid reveal" style="transition-delay:.15s;">
+    <div class="clock-block">
+      <div class="clock-ring">
+        <div class="hand hand-h" id="hH"></div>
+        <div class="hand hand-m" id="hM"></div>
+        <div class="hand hand-s" id="hS"></div>
+        <div class="clock-center"></div>
+      </div>
+      <div class="clock-dig" id="cDig">--:--:-- --</div>
+      <div class="clock-dt" id="cDt">--- -- ----</div>
+      <div class="clock-tz">WAT · UTC+1</div>
+    </div>
+    <div class="status-block">
+      <div class="status-now">
+        <div class="sn-lbl"><div class="pulse-dot"></div>Live status · Nigeria</div>
+        <div class="sn-act" id="snAct">Loading...</div>
+        <div class="sn-sub" id="snSub"></div>
+      </div>
+      <div class="sched-list">
+        <div class="sched-row" data-s="0"    data-e="8">
+          <span class="s-time">12:00 – 8:00 AM</span><div class="s-dot"></div><span class="s-lbl">😴 Asleep — resting up</span>
+        </div>
+        <div class="sched-row" data-s="8"    data-e="11">
+          <span class="s-time">8:00 – 11:00 AM</span><div class="s-dot"></div><span class="s-lbl">🌅 Just woke up — morning routine</span>
+        </div>
+        <div class="sched-row" data-s="11"   data-e="12.5">
+          <span class="s-time">11:00 AM – 12:30 PM</span><div class="s-dot"></div><span class="s-lbl">🧹 House chores</span>
+        </div>
+        <div class="sched-row" data-s="12.5" data-e="13.5">
+          <span class="s-time">12:30 – 1:30 PM</span><div class="s-dot"></div><span class="s-lbl">💪 At the gym</span>
+        </div>
+        <div class="sched-row" data-s="13.5" data-e="14">
+          <span class="s-time">1:30 – 2:00 PM</span><div class="s-dot"></div><span class="s-lbl">🍽️ Having lunch</span>
+        </div>
+        <div class="sched-row" data-s="14"   data-e="20">
+          <span class="s-time">2:00 – 8:00 PM</span><div class="s-dot"></div><span class="s-lbl">💻 Coding — best time to reach me ✅</span>
+        </div>
+        <div class="sched-row" data-s="20"   data-e="24">
+          <span class="s-time">8:00 PM – 12:00 AM</span><div class="s-dot"></div><span class="s-lbl">🌙 Evening wind-down</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Works -->
+<section class="section" id="works" style="border-top:1px solid var(--bdr2);">
+  <div class="reveal">
+    <p class="sec-lbl">// shipped projects</p>
+    <h2 class="sec-ttl">MY <span>WORKS</span></h2>
+  </div>
+
+  <div class="works-grid">
+
+   
+   
+
+    <!-- Color Picker -->
+    <div class="work-card reveal" style="transition-delay:.16s;">
+      <div class="wc-num">03 / DEV TOOL</div>
+      <span class="wc-icon">🎨</span>
+      <div class="wc-genre">Developer Tool</div>
+      <div class="wc-ttl">Just<br>Colors</div>
+      <p class="wc-desc">A minimal, fast color picker for developers and designers. Grab hex codes, generate palettes, and pick the perfect shade — all in the browser with no friction.</p>
+      <a href="https://justcolors.netlify.app/" target="_blank" class="wc-link">Open Tool <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+    </div>
+
+    <!-- Stories — full width card with accordion -->
+    <div class="work-card stories-card reveal" style="transition-delay:.24s;">
+      <div>
+        <div class="wc-num">04 / CREATIVE WRITING</div>
+        <span class="wc-icon">📖</span>
+        <div class="wc-genre">Story Writing · 5 Series</div>
+        <div class="wc-ttl">My Story<br>Universe</div>
+        <p class="wc-desc">Beyond code, I write — romance, crime drama, survival horror, and more. Each story lives on its own live web experience. Click any title on the right to explore.</p>
+        <p style="font-family:'Space Mono',monospace;font-size:.72rem;color:var(--dim);margin-top:1rem;">5 stories · 4 genres · all live on Netlify →</p>
+      </div>
+      <div class="story-accordion">
+
+        <div class="story-item">
+          <button class="story-hdr" onclick="toggleStory(this)">
+            <div class="story-hdr-l"><span class="story-emoji">❤️</span><span class="story-name">My Story Series — Sasha &amp; Otito</span></div>
+            <span class="story-arr">+</span>
+          </button>
+          <div class="story-body">
+            <div class="story-body-inner">
+              <p class="story-desc">A TikTok duet turns into a deep emotional love story — connection, heartbreak, reconciliation, and forever.</p>
+              <a href="https://atruelovestory.netlify.app/" target="_blank" class="wc-link">Read →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="story-item">
+          <button class="story-hdr" onclick="toggleStory(this)">
+            <div class="story-hdr-l"><span class="story-emoji">👑</span><span class="story-name">Drug Baron Lord Otikas</span></div>
+            <span class="story-arr">+</span>
+          </button>
+          <div class="story-body">
+            <div class="story-body-inner">
+              <p class="story-desc">Power, loyalty, and the brutal rise of a drug empire. A fictional crime drama that pulls no punches.</p>
+              <a href="https://okoyeotito.netlify.app/" target="_blank" class="wc-link">Read →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="story-item">
+          <button class="story-hdr" onclick="toggleStory(this)">
+            <div class="story-hdr-l"><span class="story-emoji">🧟</span><span class="story-name">Anna and the Zombie Apocalypse</span></div>
+            <span class="story-arr">+</span>
+          </button>
+          <div class="story-body">
+            <div class="story-body-inner">
+              <p class="story-desc">Survival in a world overrun by the undead. Follow Anna through impossible choices and fading hope.</p>
+              <a href="https://singular-crostata-ee6d9e.netlify.app/" target="_blank" class="wc-link">Read →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="story-item">
+          <button class="story-hdr" onclick="toggleStory(this)">
+            <div class="story-hdr-l"><span class="story-emoji">🔞</span><span class="story-name">A Very Erotic Story (18+)</span></div>
+            <span class="story-arr">+</span>
+          </button>
+          <div class="story-body">
+            <div class="story-body-inner">
+              <div class="badge-18">⚠️ Adult Content · 18+ Only</div>
+              <p class="story-desc">A fictional adult story. Mature content — for adults only. Contact me directly for access.</p>
+              <a href="https://otitoanddivine.netlify.app/" target="_blank" class="wc-link" style="color:var(--acc3);">Access →</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="story-item">
+          <button class="story-hdr" onclick="toggleStory(this)">
+            <div class="story-hdr-l"><span class="story-emoji">📚</span><span class="story-name">Story Collection Portfolio</span></div>
+            <span class="story-arr">+</span>
+          </button>
+          <div class="story-body">
+            <div class="story-body-inner">
+              <p class="story-desc">All my stories across genres in one curated portfolio site.</p>
+              <a href="https://eroticaa.netlify.app/" target="_blank" class="wc-link">Explore →</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- About -->
+<section class="section" id="about" style="border-top:1px solid var(--bdr2);">
+  <div class="reveal">
+    <p class="sec-lbl">// who i am</p>
+    <h2 class="sec-ttl">ABOUT <span>ME</span></h2>
+  </div>
+  <div class="about-grid">
+    <div class="about-text reveal" style="transition-delay:.1s;">
+      <p>I'm <strong>Okoye Otitochukwu Nicodemus</strong> — a <em>frontend developer</em> from Anambra State, Nigeria, currently advancing toward <strong>full-stack development</strong>. I started my dev journey in early 2026 and haven't stopped shipping since.</p>
+      <p>I learn by building. Every project pushes me further — from landing pages to <strong>3D browser games with Three.js</strong>, real-time chat apps, health trackers, and developer tools. Part of <strong>Otika's Team</strong>.</p>
+      <p>Current stack: <em>HTML · CSS · JS · React · Next.js · Tailwind · Firebase</em>. On deck: <strong>Node.js, Express, and databases</strong> — the full-stack path is in motion.</p>
+
+      <div class="roadmap">
+        <div class="rm-item"><div class="rm-dot-wrap"><div class="rm-dot done"></div><div class="rm-line"></div></div><div><div class="rm-lbl done">HTML &amp; CSS</div><div class="rm-sub">✅ Solid foundation</div></div></div>
+        <div class="rm-item"><div class="rm-dot-wrap"><div class="rm-dot done"></div><div class="rm-line"></div></div><div><div class="rm-lbl done">JavaScript</div><div class="rm-sub">✅ Building with it daily</div></div></div>
+        <div class="rm-item"><div class="rm-dot-wrap"><div class="rm-dot done"></div><div class="rm-line"></div></div><div><div class="rm-lbl done">React + Next.js</div><div class="rm-sub">✅ Shipped real apps</div></div></div>
+        <div class="rm-item"><div class="rm-dot-wrap"><div class="rm-dot done"></div><div class="rm-line"></div></div><div><div class="rm-lbl done">Tailwind + Firebase</div><div class="rm-sub">✅ In production use</div></div></div>
+        <div class="rm-item"><div class="rm-dot-wrap"><div class="rm-dot active"></div><div class="rm-line"></div></div><div><div class="rm-lbl active">Node.js + Express</div><div class="rm-sub">⏳ Currently learning</div></div></div>
+        <div class="rm-item"><div class="rm-dot-wrap"><div class="rm-dot"></div><div class="rm-line"></div></div><div><div class="rm-lbl">Databases (SQL / MongoDB)</div><div class="rm-sub">— Up next</div></div></div>
+        <div class="rm-item"><div class="rm-dot-wrap"><div class="rm-dot"></div></div><div><div class="rm-lbl">Full Stack Developer</div><div class="rm-sub">— The goal 🎯</div></div></div>
+      </div>
+    </div>
+
+    <div class="skills-block reveal" style="transition-delay:.2s;">
+      <div class="skill-row">
+        <div class="skill-top"><span class="skill-name"><svg width="13" height="13" viewBox="0 0 24 24" fill="#e34f26"><path d="M1.5 0h21l-1.91 21.563L11.977 24l-8.564-2.438L1.5 0zm7.031 9.75l-.232-2.718 10.059.003.23-2.622L5.412 4.41l.698 8.01h9.126l-.326 3.426-2.91.804-2.955-.81-.188-2.11H6.248l.33 4.171L12 19.351l5.379-1.443.744-8.157H8.531z"/></svg>HTML5</span><span class="skill-pct">90%</span></div>
+        <div class="skill-bar"><div class="skill-fill" data-w="90"></div></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-top"><span class="skill-name"><svg width="13" height="13" viewBox="0 0 24 24" fill="#1572b6"><path d="M1.5 0h21l-1.91 21.563L11.977 24l-8.565-2.438L1.5 0zm17.09 4.413L5.41 4.41l.213 2.622 10.125.002-.255 2.716h-6.64l.24 2.573h6.182l-.366 3.523-2.91.804-2.956-.81-.188-2.11h-2.61l.29 3.855L12 19.288l5.373-1.53L18.59 4.414z"/></svg>CSS3</span><span class="skill-pct">85%</span></div>
+        <div class="skill-bar"><div class="skill-fill" data-w="85"></div></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-top"><span class="skill-name"><svg width="13" height="13" viewBox="0 0 24 24" fill="#f7df1e"><rect width="24" height="24" rx="2" fill="#f7df1e"/><path d="M6 17.5c.4.7 1 1.2 2 1.2 1 0 1.7-.5 1.7-1.6V11h2v6.1c0 2.4-1.4 3.5-3.4 3.5-1.8 0-2.9-.9-3.4-2l1.1-.6zm6.4-.1c.5.9 1.2 1.5 2.4 1.5 1 0 1.7-.5 1.7-1.2 0-.8-.7-1.1-1.9-1.6l-.6-.3c-1.9-.8-3.1-1.8-3.1-3.9 0-1.9 1.5-3.4 3.7-3.4 1.6 0 2.8.6 3.6 2l-2 1.3c-.4-.8-1-1.1-1.7-1.1-.8 0-1.3.5-1.3 1.1 0 .8.5 1.1 1.6 1.5l.6.3c2.2.9 3.5 1.9 3.5 4 0 2.3-1.8 3.6-4.2 3.6-2.4 0-3.9-1.1-4.6-2.6l2.3-1.2z"/></svg>JavaScript</span><span class="skill-pct">78%</span></div>
+        <div class="skill-bar"><div class="skill-fill" data-w="78"></div></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-top"><span class="skill-name"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="2" fill="#61dafb"/><ellipse cx="12" cy="12" rx="10" ry="4" fill="none" stroke="#61dafb" stroke-width="1.2"/><ellipse cx="12" cy="12" rx="10" ry="4" fill="none" stroke="#61dafb" stroke-width="1.2" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="10" ry="4" fill="none" stroke="#61dafb" stroke-width="1.2" transform="rotate(120 12 12)"/></svg>React</span><span class="skill-pct">70%</span></div>
+        <div class="skill-bar"><div class="skill-fill" data-w="70"></div></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-top"><span class="skill-name">🔷 Tailwind CSS</span><span class="skill-pct">82%</span></div>
+        <div class="skill-bar"><div class="skill-fill" data-w="82"></div></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-top"><span class="skill-name">🔥 Firebase</span><span class="skill-pct">65%</span></div>
+        <div class="skill-bar"><div class="skill-fill" data-w="65"></div></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-top"><span class="skill-name">▲ Next.js</span><span class="skill-pct">60%</span></div>
+        <div class="skill-bar"><div class="skill-fill" data-w="60"></div></div>
+      </div>
+      <div class="skill-row">
+        <div class="skill-top"><span class="skill-name">🟢 Node.js</span><span class="skill-pct">25%</span></div>
+        <div class="skill-bar"><div class="skill-fill dim-fill" data-w="25"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Contact -->
+<section class="section" id="contact" style="border-top:1px solid var(--bdr2);">
+  <div class="contact-grid">
+    <div class="contact-left reveal">
+      <p class="sec-lbl">// get in touch</p>
+      <h2 class="sec-ttl">LET'S <span>BUILD</span><br>SOMETHING</h2>
+      <p>Got a project, a collab idea, or a bug that needs squashing? I'm available <strong>2PM – 8PM WAT</strong> and always open to interesting work. I reply fast.</p>
+    </div>
+    <div class="c-links reveal" style="transition-delay:.15s;">
+      <a href="https://wa.me/2349038679275" target="_blank" class="c-link">
+        <div class="c-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></div>
+        <div><span class="c-lbl">WhatsApp</span><span class="c-val">+234 903 867 9275</span></div>
+      </a>
+      <a href="https://t.me/Otikas1" target="_blank" class="c-link">
+        <div class="c-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg></div>
+        <div><span class="c-lbl">Telegram</span><span class="c-val">@Otikas1</span></div>
+      </a>
+      <a href="https://tiktok.com/@otikas" target="_blank" class="c-link">
+        <div class="c-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.16 8.16 0 004.77 1.52V6.73a4.85 4.85 0 01-1-.04z"/></svg></div>
+        <div><span class="c-lbl">TikTok</span><span class="c-val">@otikas</span></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <span >
+    <q>“A clean function is not the one that works, 
+    but the one you can understand six months later without pain 
+      <cite>-Otikas</cite>
+    </q>
+  </span>
+</footer>
+
+<script src="script.js">
+</script>
+</body>
+</html>
